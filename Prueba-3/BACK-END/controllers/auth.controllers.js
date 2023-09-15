@@ -1,6 +1,10 @@
+const catchAsync = require("../helpers/catchAsync");
+const { generateJWT } = require("../helpers/jwt");
+const { Users } = require("../models/users.models");
+const bcrypt = require("bcryptjs");
 
 const createUser = catchAsync(async (req, res, next) => {
-    const {sessionUser} = req;
+
     const { name, lastname, email, password } = req.body;
   
     const user = new Users({
@@ -26,10 +30,14 @@ const createUser = catchAsync(async (req, res, next) => {
       user: {
         id: user.id,
         email: user.email,
-        name: user.name.charAt(0).toUpperCase() + user.name.slice(1),
-        lastname: user.lastname.charAt(0).toUpperCase() + user.lastname.slice(1),
-        role: user.role.charAt(0).toUpperCase() + user.role.slice(1),
+        name: user.name,
+        lastname: user.lastname,
+        role: user.role,
       },
     });
   });
   
+
+  module.exports = {
+    createUser
+  }

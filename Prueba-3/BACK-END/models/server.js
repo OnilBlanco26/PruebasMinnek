@@ -3,6 +3,8 @@ const { authRouter } = require('../routes/auth.routes');
 const cors = require('cors');
 const globalErrorHandler = require('../controllers/error.controllers');
 const AppError = require('../helpers/appError');
+const { db } = require('../database/db');
+const morgan = require('morgan');
 
 class Server {
     constructor() {
@@ -11,7 +13,7 @@ class Server {
     
 
     this.paths = {
-        auth: 'kennek/api/auth'
+        auth: '/minnerk/api/v1/auth'
     }
 
     this.database()
