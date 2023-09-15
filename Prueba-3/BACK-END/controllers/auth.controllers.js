@@ -1,6 +1,7 @@
+const AppError = require("../helpers/appError");
 const catchAsync = require("../helpers/catchAsync");
 const { generateJWT } = require("../helpers/jwt");
-const { Users } = require("../models/users.models");
+const  Users  = require("../models/users.models");
 const bcrypt = require("bcryptjs");
 
 const createUser = catchAsync(async (req, res, next) => {
@@ -36,8 +37,54 @@ const createUser = catchAsync(async (req, res, next) => {
       },
     });
   });
+
   
+const login = catchAsync(async (req, res, next) => {
+    const { email, password } = req.body;
+    const { user } = req;
+  
+    if (!user) {
+      return next(new AppError('El usuario no ha sido encontrado', 404));
+    }
+  
+    if (!(await bcrypt.compare(password, user.password))) {
+      return next(new AppError('Email or password incorrect', 401));
+    }
+
+    await user.save();
+  
+    const token = await generateJWT(user.id);
+  
+    res.status(200).json({
+      status: 'success',
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        lastname: user.lastname,
+      },
+    });
+  });
+  
+  const renewToken = catchAsync(async (req, res, next) => {
+    const { sessionUser } = req;
+  
+    const token = await generateJWT(sessionUser.id);
+  
+    res.status(200).json({
+      staus: 'success',
+      token,
+      user: {
+        id: sessionUser.id,
+        email: sessionUser.email,
+        name: sessionUser.name,
+        lastname: sessionUser.lastname,
+      },
+    });
+  });
 
   module.exports = {
-    createUser
+    createUser,
+    login
   }

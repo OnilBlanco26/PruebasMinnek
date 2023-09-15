@@ -5,6 +5,8 @@ const globalErrorHandler = require('../controllers/error.controllers');
 const AppError = require('../helpers/appError');
 const { db } = require('../database/db');
 const morgan = require('morgan');
+const { usersRouter } = require('../routes/users.routes');
+const { checkTokenExpiration } = require('../middlewares/auth.middlewares');
 
 class Server {
     constructor() {
@@ -13,7 +15,8 @@ class Server {
     
 
     this.paths = {
-        auth: '/minnerk/api/v1/auth'
+        auth: '/minnerk/api/v1/auth',
+        users: '/minnerk/api/v1/users'
     }
 
     this.database()
@@ -30,13 +33,14 @@ class Server {
           if(process.env.NODE_ENV === 'production') {
             console.log('Modo de produccion')
           }
-
+          this.app.use(checkTokenExpiration)
           this.app.use(cors())
             this.app.use(express.json())
     }
 
     routes(){
         this.app.use(this.paths.auth, authRouter)
+        this.app.use(this.paths.users, usersRouter)
 
         this.app.all('*', (req,res ,next) => {
             return next(new AppError(`La ruta ${req.originalUrl} no esta definida`))

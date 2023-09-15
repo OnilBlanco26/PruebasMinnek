@@ -25,6 +25,10 @@ const Users = db.define('users', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    passwordChangeAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+    },
     status: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
@@ -32,4 +36,4 @@ const Users = db.define('users', {
     }
 })
 
-module.exports = { Users }
+module.exports =  Users 

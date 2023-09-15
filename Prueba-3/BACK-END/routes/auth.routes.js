@@ -1,8 +1,8 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validateFields } = require("../middlewares/validateFields.middlwares");
-const { createUser } = require("../controllers/auth.controllers");
-const { validateUserByEmail } = require("../middlewares/users.middlewares");
+const { createUser, login } = require("../controllers/auth.controllers");
+const { validateUserByEmail, validateIfExistUserByEmail, validateEmail } = require("../middlewares/users.middlewares");
 
 
 const router = Router()
@@ -16,7 +16,12 @@ router.post('/signup', [
     validateUserByEmail
 ], createUser)
 
-// router.post('/login', login)
+router.post('/login', [
+    check('email', 'The email is required').isEmail(),
+    check('password', 'The password is required').not().isEmpty(),
+    validateFields,
+    validateEmail
+] , login)
 
 module.exports = {
     authRouter: router

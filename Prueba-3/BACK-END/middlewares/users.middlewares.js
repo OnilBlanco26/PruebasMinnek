@@ -1,5 +1,6 @@
 const catchAsync = require("../helpers/catchAsync");
-const { Users } = require("../models/users.models");
+const Users = require("../models/users.models");
+
 
 
 exports.validateUserById = catchAsync(async (req, res, next) => {
@@ -43,3 +44,24 @@ exports.validateUserByEmail = catchAsync( async (req, res, next) => {
   
     next();
   })
+
+
+  exports.validateEmail = catchAsync(async (req, res, next) => {
+    const { email } = req.body;
+  
+    const user = await Users.findOne({
+      where: {
+        email: email.toLowerCase().trim(),
+      },
+    });
+  
+    if (!user) {
+      return res.status(404).json({
+        status: 'Error',
+        message: 'No se ha encontrado el usuario',
+      });
+    }
+  
+    req.user = user;
+    next();
+  });
