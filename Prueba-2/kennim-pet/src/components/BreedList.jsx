@@ -5,6 +5,9 @@ import CardBreed from "./CardBreed";
 const BreedList = () => {
   const [breeds, setBreeds] = useState([]);
   const [breedsImages, setBreedsImages] = useState({});
+  const [subBreeds, setSubBreeds] = useState({});
+  const [selectedBreed, setSelectedBreed] = useState(null);
+  const [selectedSubBreed, setSelectedSubBreed] = useState(null);
 
   useEffect(() => {
     axios
@@ -17,34 +20,56 @@ const BreedList = () => {
   }, []);
 
   useEffect(() => {
-    const fetchImages = async () => {
-      const images = {};
-      for (const breed of breeds) {
-        try {
-          const res = await axios.get(
-            `https://dog.ceo/api/breed/${breed}/images/random`
-          );
-          images[breed] = res.data.message;
-        } catch (err) {
-          console.log(err);
-          images[breed] = null;
-        }
+     const images = {}
+     const breedsData = {}
+
+     const fetchImages = async (breed) => {
+      try {
+        const res = await axios.get(`https://dog.ceo/api/breed/${breed}/images/random`);
+        images[breed] = res.data.message;
+        setBreedsImages((prevImages) => ({
+          ...prevImages,
+          [breed]: images[breed],
+        }));
+      } catch (err) {
+        console.log(err);
+        images[breed] = null;
+        setBreedsImages((prevImages) => ({
+          ...prevImages,
+          [breed]: null,
+        }));
       }
-      setBreedsImages(images);
-      console.log(setBreedsImages)
     };
 
-    if (breeds.length > 0) {
-      fetchImages();
-    }
+    const fetchSubBreeds = async (breed) => {
+      try {
+        const res = await axios.get(`https://dog.ceo/api/breed/${breed}/list`);
+        const subBreedList = res.data.message;
+        if (subBreedList.length > 0) {
+          breedsData[breed] = subBreedList;
+          setSubBreeds((prevSubBreeds) => ({
+            ...prevSubBreeds,
+            [breed]: breedsData[breed],
+          }));
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    breeds.forEach((breed) => {
+      fetchImages(breed);
+      fetchSubBreeds(breed);
+    });
+
   }, [breeds]);
   
 
   return (
     <div className="container">
-      <h1>Vislumbre de maravillas</h1>
+      <h1 className="app-title">Vislumbre de maravillas</h1>
 
-      <div>
+      <div className="breed-container">
         <CardBreed breeds={breeds} breedsImages={breedsImages} />
       </div>
     </div>
