@@ -1,13 +1,13 @@
-import BreedList from "./components/BreedList"
-import Navbar from "./components/Navbar"
+import BreedList from './components/BreedList';
+import Navbar from './components/Navbar';
 
 const DogsApp = () => {
   return (
-   <>
-   <Navbar />
-   <BreedList />
-   </>
-  )
-}
+    <>
+      <Navbar />
+      <BreedList />
+    </>
+  );
+};
 
-export default DogsApp
+export default DogsApp;
