@@ -7,6 +7,8 @@ const { db } = require('../database/db');
 const morgan = require('morgan');
 const { usersRouter } = require('../routes/users.routes');
 const { checkTokenExpiration } = require('../middlewares/auth.middlewares');
+const { dogsRouter } = require('../routes/dogs.routes');
+const initModel = require('./initModels');
 
 class Server {
     constructor() {
@@ -16,7 +18,8 @@ class Server {
 
     this.paths = {
         auth: '/minnerk/api/v1/auth',
-        users: '/minnerk/api/v1/users'
+        users: '/minnerk/api/v1/users',
+        dogs: '/minnerk/api/v1/dogs'
     }
 
     this.database()
@@ -41,6 +44,7 @@ class Server {
     routes(){
         this.app.use(this.paths.auth, authRouter)
         this.app.use(this.paths.users, usersRouter)
+        this.app.use(this.paths.dogs, dogsRouter)
 
         this.app.all('*', (req,res ,next) => {
             return next(new AppError(`La ruta ${req.originalUrl} no esta definida`))
@@ -55,6 +59,8 @@ class Server {
             console.log('Database Authenticated')
         })
         .catch(err => console.log(err))
+
+        initModel()
 
         db.sync()
         .then(() => console.log('Database Synced'))
