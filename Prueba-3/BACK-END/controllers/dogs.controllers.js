@@ -7,6 +7,9 @@ const findAllDogs = catchAsync(async (req, res, next) => {
     const dogs = await Dogs.findAll({
         where: {
             status: true
+        },
+        include: {
+            model: SubBreed,
         }
     })
 

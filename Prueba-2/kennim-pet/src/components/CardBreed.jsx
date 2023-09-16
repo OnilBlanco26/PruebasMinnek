@@ -19,6 +19,7 @@ const CardBreed = ({ breeds, breedsImages, subBreeds }) => {
             </div>
 
             <h2 className="breed-name">{breed}</h2>
+            
             <div className="sub-breeds-container">
               {subBreeds[breed] && subBreeds[breed].length > 0 ? (
                 <ul className="sub-breeds-list">

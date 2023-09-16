@@ -33,10 +33,10 @@ const BreedList = () => {
         }));
       } catch (err) {
         console.log(err);
-        images[breed] = null;
+        images[breed] = 'sin imagen';
         setBreedsImages(prevImages => ({
           ...prevImages,
-          [breed]: null,
+          [breed]: 'sin imagen',
         }));
       }
     };
@@ -66,7 +66,6 @@ const BreedList = () => {
   return (
     <div className="container">
       <h1 className="app-title">Vislumbre de maravillas</h1>
-
       <div className="breed-container">
         <CardBreed
           breeds={breeds}
