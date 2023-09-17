@@ -223,3 +223,50 @@ body {
     margin-top: 1rem;
 
 }
+
+.table-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dogs-table {
+    width: 70%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: #4f6fad;
+    opacity: 90%;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    border-radius: 10px;
+    color: white;
+    margin-bottom: 5rem;
+    
+}
+
+.dogs-table--body {
+    text-align: center;
+}
+
+th {
+    border-bottom: 1px solid gray;
+    border-radius: 20px;
+}
+
+td { 
+    border-bottom: 1px solid gray;
+    border-radius: 20px;
+}
+
+td:last-child {
+    border-bottom: none; /* Elimina el borde inferior para el último td */
+}
+tr {
+    border-bottom: 1px solid gray
+}
+
+tr:last-child {
+    border-bottom: none;
+}
+

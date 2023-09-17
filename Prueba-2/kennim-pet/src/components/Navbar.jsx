@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
+    <>
+     <h1 className="app-title">Vislumbre de maravillas</h1>
     <nav className="navbar">
       <div className="navbar-logo">
       <h2 className="navbar-title">MINNEK</h2>
@@ -17,6 +19,7 @@ const Navbar = () => {
       </div>
       
     </nav>
+    </>
   );
 };
 

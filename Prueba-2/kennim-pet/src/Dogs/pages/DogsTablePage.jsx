@@ -1,7 +1,10 @@
+import DogsTable from "../../components/DogsTable"
 
 const DogsTablePage = () => {
   return (
-    <div>DogsTablePage</div>
+    <div className="table-container">
+      <DogsTable />
+    </div>
   )
 }
 
