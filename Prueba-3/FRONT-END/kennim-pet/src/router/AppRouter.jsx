@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import Login from '../pages/Landing/components/Login';
 import SignUp from '../pages/Landing/components/SignUp';
+import CreateDogPage from '../pages/Dogs/CreateDogPage';
 // import { startChecking } from '../redux/actions/auth';
 
 const AppRouter = () => {
@@ -50,6 +51,7 @@ const AppRouter = () => {
               <Routes>
                 <Route path="home" element={<DogsImagePage />} />
                 <Route path="table" element={<DogsTablePage />} />
+                <Route path="create" element={<CreateDogPage />} />
               </Routes>
             </PrivateRoute>
           }

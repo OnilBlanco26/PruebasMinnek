@@ -2,32 +2,33 @@ import { useContext, useState } from 'react';
 import { DogsContext } from '../context/DogsContext';
 
 const DogsTable = () => {
-  const { breeds, subBreeds } = useContext(DogsContext);
+  const { breeds } = useContext(DogsContext);
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('name');
 
-  const filterBreeds = (breeds, subBreeds, search) => {
+  const filterBreeds = (breeds, search) => {
     return breeds.filter(breed => {
+      const breedName = breed.name.toLowerCase();
+      const subBreedNames = breed.subBreeds.map(subBreed =>
+        subBreed.name.toLowerCase()
+      );
+      const searchValue = search.toLowerCase();
       return (
-        breed.toLowerCase().includes(search.toLowerCase()) ||
-        (subBreeds[breed] &&
-          subBreeds[breed].some(subBreed =>
-            subBreed.toLowerCase().includes(search.toLowerCase())
-          ))
+        breedName.includes(searchValue) ||
+        subBreedNames.some(subBreedName => subBreedName.includes(searchValue))
       );
     });
   };
 
-  const sortBreeds = (filteredBreeds, subBreeds, sortBy) => {
+  const sortBreeds = (filteredBreeds, sortBy) => {
     return filteredBreeds.sort((a, b) => {
       if (sortBy === 'name') {
-        return a.localeCompare(b);
+        return a.name.localeCompare(b.name);
       } else if (sortBy === 'subBreed') {
-        return (subBreeds[a] ? subBreeds[a][0] : '').localeCompare(
-          subBreeds[b] ? subBreeds[b][0] : ''
-        );
+        const aSubBreedNames = a.subBreeds.map(subBreed => subBreed.name);
+        const bSubBreedNames = b.subBreeds.map(subBreed => subBreed.name);
+        return aSubBreedNames.join().localeCompare(bSubBreedNames.join());
       }
-      return 0;
     });
   };
 
@@ -35,11 +36,11 @@ const DogsTable = () => {
     setSortBy(e.target.value);
   };
 
-  const filteredBreeds = filterBreeds(breeds, subBreeds, search);
-  const sortedBreeds = sortBreeds(filteredBreeds, subBreeds, sortBy);
+  const filteredBreeds = filterBreeds(breeds, search);
+  const sortedBreeds = sortBreeds(filteredBreeds, sortBy);
 
   return (
-    <div className='dogs-table--container'>
+    <div className="dogs-table--container">
       <div className="filter-container">
         <input
           className="table-input"
@@ -68,20 +69,15 @@ const DogsTable = () => {
         <tbody className="dogs-table--body">
           {sortedBreeds.map(breed => {
             return (
-              <tr key={breed} className="dogs-table--body__tr">
-                <td>{breed}</td>
-                {subBreeds[breed] && subBreeds[breed].length > 0 ? (
-                  <td>
-                    {subBreeds[breed].map((subBreed, index) => (
-                      <span key={subBreed}>
-                        {subBreed}
-                        {index !== subBreeds[breed].length - 1 ? ', ' : ''}
-                      </span>
-                    ))}
-                  </td>
-                ) : (
-                  <p className="">No sub-races</p>
-                )}
+              <tr key={breed.id} className="dogs-table--body__tr">
+                <td>{breed.name}</td>
+                {breed.subBreeds.length > 0
+                  ? breed.subBreeds.map((subBreed, index) => {
+                      return <span key={subBreed.id}>{subBreed.name}
+                      {index < breed.subBreeds.length - 1 ? ', ' : null}
+                      </span>;
+                    })
+                  : null}
               </tr>
             );
           })}

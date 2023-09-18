@@ -1,44 +1,30 @@
-
 import { useContext } from 'react';
 import { DogsContext } from '../context/DogsContext';
 
 const CardBreed = () => {
+  const { breeds } = useContext(DogsContext);
 
-  const { breeds, breedsImages, subBreeds } = useContext(DogsContext);
-  
   return breeds ? (
     <div className="breed-container">
       {breeds.map(breed => {
         return (
-          <div className="breed-card" key={breed}>
+          <div className="breed-card" key={breed.id}>
             <div className="image-container">
-              {breedsImages[breed] ? (
-                <img
-                  className="breed-image"
-                  src={breedsImages[breed]}
-                  alt={breed}
-                />
-              ) : (
-                <p className="noImage-text">Loading Image...</p>
-              )}
+              <p>{breed.image}</p>
             </div>
-
-            <h2 className="breed-name">{breed}</h2>
-            
-            <div className="sub-breeds-container">
-              {subBreeds[breed] && subBreeds[breed].length > 0 ? (
-                <ul className="sub-breeds-list">
-                  {subBreeds[breed].map(subBreed => {
-                    return (
-                      <li className="sub-breeds-item" key={subBreed}>
-                        {subBreed}
-                      </li>
-                    );
-                  })}
+            <div className="breed-card--info">
+              <h2 className="breed-name">{breed.name}</h2>
+              <div className="sub-breeds-container">
+                <ul className='sub-breeds-list'>
+                {breed.subBreeds.map(subBreed => {
+                  return (
+                    <li className="sub-breed-item" key={subBreed.id}>
+                      {subBreed.name}
+                    </li>
+                  );
+                })}
                 </ul>
-              ) : (
-                <p className="sub-breeds-item">No sub-races</p>
-              )}
+              </div>
             </div>
           </div>
         );
@@ -48,6 +34,5 @@ const CardBreed = () => {
     <p>Wait...</p>
   );
 };
-
 
 export default CardBreed;

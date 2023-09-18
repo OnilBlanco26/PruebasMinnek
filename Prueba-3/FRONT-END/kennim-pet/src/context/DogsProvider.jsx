@@ -8,14 +8,13 @@ export const DogsProvider = ({ children }) => {
 
     const [breeds, setBreeds] = useState([]);
     const [breedsImages, setBreedsImages] = useState({});
-    const [subBreeds, setSubBreeds] = useState({});
   
     useEffect(() => {
       axios
-        .get('https://dog.ceo/api/breeds/list/all')
+        .get('http://localhost:3000/minnerk/api/v1/dogs')
         .then(res => {
-          const breedList = Object.keys(res.data.message);
-          setBreeds(breedList);
+          setBreeds(res.data.data.dogs);
+          console.log(res.data.data.dogs)
         })
         .catch(err => console.log(err));
     }, []);
@@ -44,25 +43,11 @@ export const DogsProvider = ({ children }) => {
         }
       };
   
-      const fetchSubBreeds = async breed => {
-        try {
-          const res = await axios.get(`https://dog.ceo/api/breed/${breed}/list`);
-          const subBreedList = res.data.message;
-          if (subBreedList.length > 0) {
-            breedsData[breed] = subBreedList;
-            setSubBreeds(prevSubBreeds => ({
-              ...prevSubBreeds,
-              [breed]: breedsData[breed],
-            }));
-          }
-        } catch (err) {
-          console.log(err);
-        }
-      };
+     
   
       breeds.forEach(breed => {
         fetchImages(breed);
-        fetchSubBreeds(breed);
+    
       });
     }, [breeds]);
 
@@ -74,7 +59,7 @@ export const DogsProvider = ({ children }) => {
 
 
     return (
-        <DogsContext.Provider value={{breeds, breedsImages, subBreeds}}>
+        <DogsContext.Provider value={{breeds, breedsImages}}>
             {children}
         </DogsContext.Provider>
     )

@@ -17,10 +17,13 @@ const Navbar = () => {
         {
      id > 0 ? (
       <div className="navbar-links">
-          <NavLink activeClassName="link-active" to="/dogs/table">
+         <NavLink className="nav-item" activeClassName="link-active" to="/dogs/create">
+            Create Dog
+          </NavLink>
+          <NavLink className="nav-item" activeClassName="link-active" to="/dogs/table">
             Table
           </NavLink>
-          <NavLink activeClassName="link-active" to="/dogs/home">
+          <NavLink className="nav-item" activeClassName="link-active" to="/dogs/home">
             Home
           </NavLink>
         </div>
