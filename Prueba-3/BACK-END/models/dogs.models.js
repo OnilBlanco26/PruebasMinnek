@@ -12,10 +12,6 @@ const Dogs = db.define('dogs', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    breed: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
     image: {
         type: DataTypes.STRING,
         allowNull: true
