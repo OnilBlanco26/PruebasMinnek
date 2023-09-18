@@ -1,8 +1,10 @@
-import CardBreed from "../../src/components/CardBreed"
+import CardBreed from "../../components/CardBreed"
+import Navbar from "../../components/Navbar"
 
 const DogsImagePage = () => {
   return (
     <>
+    <Navbar />
       <CardBreed />
     </>
   )

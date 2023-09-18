@@ -29,6 +29,7 @@ class Server {
 }
 
     middlewares() {
+      
         if(process.env.NODE_ENV === 'development') {
             console.log('Modo de desarrollo')
             this.app.use(morgan('dev')) //Me sirve para ver las peticiones que se hacen al back-end
@@ -36,8 +37,8 @@ class Server {
           if(process.env.NODE_ENV === 'production') {
             console.log('Modo de produccion')
           }
-          this.app.use(checkTokenExpiration)
-          this.app.use(cors())
+         
+        this.app.use(cors());
             this.app.use(express.json())
     }
 

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { DogsContext } from "./DogsContext"
+
 import axios from "axios";
 import PropTypes from 'prop-types';
+import { DogsContext } from "./DogsContext";
 
 export const DogsProvider = ({ children }) => {
 

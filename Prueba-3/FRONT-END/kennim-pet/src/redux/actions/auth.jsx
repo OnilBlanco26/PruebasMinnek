@@ -1,25 +1,25 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import { setIsLoading } from "./ui";
-import { types } from "./types/types";
-import getConfig from "../../helpers/getConfig";
+import { types } from "../types/types";
 
 export const startLogin = (email, password) => {
   return (dispatch) => {
     dispatch(setIsLoading(true));
     axios
       .post(
-        "localhost:3000/minnerk/api/v1/auth/login",
+        "http://localhost:3000/minnerk/api/v1/auth/login",
         {
           email,
           password,
         }
       )
       .then((resp) => {
+        console.log(resp)
         localStorage.setItem("token", resp.data.token);
         dispatch(
           login({
-            id: resp.data.user.uid,
+            id: resp.data.user.id,
             name: resp.data.user.name,
           })
         );
@@ -38,19 +38,20 @@ export const startLogin = (email, password) => {
           text: err.response?.data?.message,
         });
       })
-      .finally(() => dispatch(setIsLoading(false)));
+      .finally(() => dispatch(setIsLoading(true)));
   };
 };
 
-export const startRegister = (email, password) => {
+export const startRegister = (name, lastname,email, password) => {
   return (dispatch) => {
     dispatch(setIsLoading(true));
     axios
       .post(
-        "localhost:3000/minnerk/api/v1/auth/signup",
-        { email, password }
+        "http://localhost:3000/minnerk/api/v1/auth/signup",
+        { name, lastname, email, password }
       )
       .then((resp) => {
+        console.log(resp.data)
         localStorage.setItem("token", resp.data.token);
         dispatch(
           login({
@@ -82,15 +83,17 @@ export const startChecking = () => {
     dispatch(setIsLoading(true));
     axios
       .get(
-        "localhost:3000/minnerk/api/v1/users/renew",
-        getConfig()
+        "http://localhost:3000/minnerk/api/v1/auth/renew",
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
       )
       .then((resp) => {
         console.log("LEEME! 🙌", resp);
         localStorage.setItem("token", resp.data.token);
         dispatch(
           login({
-            id: resp.data.user.uid,
+            id: resp.data.user.id,
             email: resp.data.user.email,
           })
         );

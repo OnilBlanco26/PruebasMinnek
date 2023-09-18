@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+
 import { useContext } from 'react';
 import { DogsContext } from '../context/DogsContext';
 
@@ -49,10 +49,5 @@ const CardBreed = () => {
   );
 };
 
-CardBreed.propTypes = {
-  breeds: PropTypes.array.isRequired,
-  breedsImages: PropTypes.object.isRequired,
-  subBreeds: PropTypes.object.isRequired,
-};
 
 export default CardBreed;
