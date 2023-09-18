@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 
 const DogsTable = () => {
   const [breeds, setBreeds] = useState([]);
-  const [breedsImages, setBreedsImages] = useState({});
   const [subBreeds, setSubBreeds] = useState({});
+  const [search, setSearch] = useState('');
+  const [sortBy, setSortBy] = useState('name');
 
   useEffect(() => {
     axios
@@ -39,36 +40,86 @@ const DogsTable = () => {
       fetchSubBreeds(breed);
     });
   }, [breeds]);
+
+  const filterBreeds = (breeds, subBreeds, search) => {
+    return breeds.filter(breed => {
+      return (
+        breed.toLowerCase().includes(search.toLowerCase()) ||
+        (subBreeds[breed] &&
+          subBreeds[breed].some(subBreed =>
+            subBreed.toLowerCase().includes(search.toLowerCase())
+          ))
+      );
+    });
+  };
+
+  const sortBreeds = (filteredBreeds, subBreeds, sortBy) => {
+    return filteredBreeds.sort((a, b) => {
+      if (sortBy === 'name') {
+        return a.localeCompare(b);
+      } else if (sortBy === 'subBreed') {
+        return (subBreeds[a] ? subBreeds[a][0] : '').localeCompare(
+          subBreeds[b] ? subBreeds[b][0] : ''
+        );
+      }
+      return 0;
+    });
+  };
+
+  const handleSortChange = (e) => {
+    setSortBy(e.target.value);
+  };
+
+
+  const filteredBreeds = filterBreeds(breeds, subBreeds, search);
+  const sortedBreeds = sortBreeds(filteredBreeds, subBreeds, sortBy);
+
   return (
-    <table className="dogs-table">
-      <thead className="dogs-table--head">
-        <tr>
-          <th>Dogs</th>
-          <th>Sub Breed</th>
-        </tr>
-      </thead>
-      <tbody className="dogs-table--body">
-        {breeds.map(breed => {
-          return (
-            <tr key={breed} className="dogs-table--body__tr">
-              <td>{breed}</td>
-              {subBreeds[breed] && subBreeds[breed].length > 0 ? (
-                <td>
-                  {subBreeds[breed].map((subBreed, index) => (
-                    <span key={subBreed}>
-                      {subBreed}
-                      {index !== subBreeds[breed].length - 1 ? ', ' : ''}
-                    </span>
-                  ))}
-                </td>
-              ) : (
-                <p className="">No hay subrazas</p>
-              )}
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <>
+    <div className='filter-container'>
+      <input
+        className="table-input"
+        type="text"
+        placeholder="Buscar por nombre de perro o subraza"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+      />
+
+      <select value={sortBy} onChange={handleSortChange}>
+        <option value="name">Ordenar por Nombre</option>
+        <option value="subBreed">Ordenar por Subraza</option>
+      </select>
+    </div>
+      <table className="dogs-table">
+        <thead className="dogs-table--head">
+          <tr>
+            <th>Dogs</th>
+            <th>Sub Breed</th>
+          </tr>
+        </thead>
+        <tbody className="dogs-table--body">
+          {sortedBreeds.map(breed => {
+            return (
+              <tr key={breed} className="dogs-table--body__tr">
+                <td>{breed}</td>
+                {subBreeds[breed] && subBreeds[breed].length > 0 ? (
+                  <td>
+                    {subBreeds[breed].map((subBreed, index) => (
+                      <span key={subBreed}>
+                        {subBreed}
+                        {index !== subBreeds[breed].length - 1 ? ', ' : ''}
+                      </span>
+                    ))}
+                  </td>
+                ) : (
+                  <p className="">No hay subrazas</p>
+                )}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </>
   );
 };
 
