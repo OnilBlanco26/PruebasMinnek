@@ -1,4 +1,5 @@
-import DogsTable from "../../components/DogsTable"
+import DogsTable from "../../src/components/DogsTable"
+
 
 const DogsTablePage = () => {
   return (

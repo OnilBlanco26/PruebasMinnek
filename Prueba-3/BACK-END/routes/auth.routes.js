@@ -1,8 +1,9 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validateFields } = require("../middlewares/validateFields.middlwares");
-const { createUser, login } = require("../controllers/auth.controllers");
+const { createUser, login, renewToken } = require("../controllers/auth.controllers");
 const { validateUserByEmail, validateIfExistUserByEmail, validateEmail } = require("../middlewares/users.middlewares");
+const { protect } = require("../middlewares/auth.middlewares");
 
 
 const router = Router()
@@ -22,6 +23,10 @@ router.post('/login', [
     validateFields,
     validateEmail
 ] , login)
+
+router.use(protect);
+
+router.get('/renew', renewToken);
 
 module.exports = {
     authRouter: router

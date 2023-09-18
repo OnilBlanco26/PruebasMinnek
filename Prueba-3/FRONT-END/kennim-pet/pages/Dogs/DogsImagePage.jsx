@@ -1,4 +1,4 @@
-import CardBreed from "../../components/CardBreed"
+import CardBreed from "../../src/components/CardBreed"
 
 const DogsImagePage = () => {
   return (

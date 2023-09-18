@@ -110,6 +110,9 @@ const protect = catchAsync(async (req, res, next) => {
     next();
   })
 
+
+  
+  
 module.exports = {
     protect,
     checkTokenExpiration

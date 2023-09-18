@@ -65,7 +65,7 @@ const createDog = catchAsync(async (req, res, next) => {
   
     return res.status(201).json({
       status: 'success',
-      message: 'Perro creado exitosamente con subrazas',
+      message: 'Successfully created dog with sub-breeds',
       data: {
         dog,
       },
