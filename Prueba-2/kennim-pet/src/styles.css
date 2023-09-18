@@ -233,17 +233,26 @@ body {
 }
 
 .filter-container {
-    width: 100%;
+    width: 70%;
     height: 5rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: .5rem;
+    gap: 2rem;
 }
 
 .table-input {
     background-color: #f6f6f6;
-    margin-bottom: 2rem;
+    padding: .5rem;
+    width: 16rem;
+    border-radius: 10px;
+    border-color: #4f6fad;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.table-select {
+    background-color: #f6f6f6;
     padding: .5rem;
     width: 16rem;
     border-radius: 10px;
@@ -266,7 +275,7 @@ body {
     border-radius: 10px;
     color: white;
     margin-bottom: 5rem;
-    
+    overflow: scroll;
 }
 
 .dogs-table--body {
@@ -284,7 +293,7 @@ td {
 }
 
 td:last-child {
-    border-bottom: none; /* Elimina el borde inferior para el último td */
+    border-bottom: none;
 }
 tr {
     border-bottom: 1px solid gray

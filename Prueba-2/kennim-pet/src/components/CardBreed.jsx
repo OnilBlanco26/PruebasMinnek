@@ -14,7 +14,7 @@ const CardBreed = ({ breeds, breedsImages, subBreeds }) => {
                   alt={breed}
                 />
               ) : (
-                <p className="noImage-text">Cargando Imagen...</p>
+                <p className="noImage-text">Loading Image...</p>
               )}
             </div>
 
@@ -32,7 +32,7 @@ const CardBreed = ({ breeds, breedsImages, subBreeds }) => {
                   })}
                 </ul>
               ) : (
-                <p className="sub-breeds-item">No hay subrazas</p>
+                <p className="sub-breeds-item">No sub-races</p>
               )}
             </div>
           </div>
@@ -40,7 +40,7 @@ const CardBreed = ({ breeds, breedsImages, subBreeds }) => {
       })}
     </div>
   ) : (
-    <p>Espere...</p>
+    <p>Wait...</p>
   );
 };
 

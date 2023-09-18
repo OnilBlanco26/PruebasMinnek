@@ -80,14 +80,14 @@ const DogsTable = () => {
       <input
         className="table-input"
         type="text"
-        placeholder="Buscar por nombre de perro o subraza"
+        placeholder="Search by dog name or sub-breed"
         value={search}
         onChange={e => setSearch(e.target.value)}
       />
 
-      <select value={sortBy} onChange={handleSortChange}>
-        <option value="name">Ordenar por Nombre</option>
-        <option value="subBreed">Ordenar por Subraza</option>
+      <select className='table-select' value={sortBy} onChange={handleSortChange}>
+        <option value="name">Sort by Name</option>
+        <option value="subBreed">Sort by Subrace</option>
       </select>
     </div>
       <table className="dogs-table">
@@ -112,7 +112,7 @@ const DogsTable = () => {
                     ))}
                   </td>
                 ) : (
-                  <p className="">No hay subrazas</p>
+                  <p className="">No sub-races</p>
                 )}
               </tr>
             );
