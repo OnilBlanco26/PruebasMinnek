@@ -1,45 +1,10 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
+import { DogsContext } from '../context/DogsContext';
 
 const DogsTable = () => {
-  const [breeds, setBreeds] = useState([]);
-  const [subBreeds, setSubBreeds] = useState({});
+  const { breeds, subBreeds } = useContext(DogsContext);
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('name');
-
-  useEffect(() => {
-    axios
-      .get('https://dog.ceo/api/breeds/list/all')
-      .then(res => {
-        const breedList = Object.keys(res.data.message);
-        setBreeds(breedList);
-      })
-      .catch(err => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    const breedsData = {};
-
-    const fetchSubBreeds = async breed => {
-      try {
-        const res = await axios.get(`https://dog.ceo/api/breed/${breed}/list`);
-        const subBreedList = res.data.message;
-        if (subBreedList.length > 0) {
-          breedsData[breed] = subBreedList;
-          setSubBreeds(prevSubBreeds => ({
-            ...prevSubBreeds,
-            [breed]: breedsData[breed],
-          }));
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    breeds.forEach(breed => {
-      fetchSubBreeds(breed);
-    });
-  }, [breeds]);
 
   const filterBreeds = (breeds, subBreeds, search) => {
     return breeds.filter(breed => {
@@ -66,30 +31,33 @@ const DogsTable = () => {
     });
   };
 
-  const handleSortChange = (e) => {
+  const handleSortChange = e => {
     setSortBy(e.target.value);
   };
-
 
   const filteredBreeds = filterBreeds(breeds, subBreeds, search);
   const sortedBreeds = sortBreeds(filteredBreeds, subBreeds, sortBy);
 
   return (
-    <>
-    <div className='filter-container'>
-      <input
-        className="table-input"
-        type="text"
-        placeholder="Search by dog name or sub-breed"
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-      />
+    <div className='dogs-table--container'>
+      <div className="filter-container">
+        <input
+          className="table-input"
+          type="text"
+          placeholder="Search by dog name or sub-breed"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
 
-      <select className='table-select' value={sortBy} onChange={handleSortChange}>
-        <option value="name">Sort by Name</option>
-        <option value="subBreed">Sort by Subrace</option>
-      </select>
-    </div>
+        <select
+          className="table-select"
+          value={sortBy}
+          onChange={handleSortChange}
+        >
+          <option value="name">Sort by Name</option>
+          <option value="subBreed">Sort by Subrace</option>
+        </select>
+      </div>
       <table className="dogs-table">
         <thead className="dogs-table--head">
           <tr>
@@ -119,7 +87,7 @@ const DogsTable = () => {
           })}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 
