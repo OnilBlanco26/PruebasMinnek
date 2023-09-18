@@ -1,9 +1,9 @@
-import BreedList from "../../components/BreedList"
+import CardBreed from "../../components/CardBreed"
 
 const DogsImagePage = () => {
   return (
     <>
-      <BreedList />
+      <CardBreed />
     </>
   )
 }

@@ -82,7 +82,18 @@ body {
     align-items: center;
     margin-right: 2rem;
     gap: 2rem;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-item:hover {
+    color: #c40b0b;
+    transform: scale(1.25);
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-item:active {
+    transform: scale(0.75);
+    transition: all 0.3s ease-in-out;
 }
 
 .link-active {
@@ -235,7 +246,7 @@ body {
 }
 
 .dogs-table--container {
-    width: 50%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -313,16 +324,4 @@ tr {
 
 tr:last-child {
     border-bottom: none;
-}
-
-.form-container {
-    width: 50%;
-    background-color: #d6d6d6;
-    opacity: 90%;
-    display: flex;
-    border-radius: 10px;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 5rem;
-    /* justify-content: center; */
 }

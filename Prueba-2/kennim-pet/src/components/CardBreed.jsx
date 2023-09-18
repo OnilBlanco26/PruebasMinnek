@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import { DogsContext } from '../context/DogsContext';
 
-const CardBreed = ({ breeds, breedsImages, subBreeds }) => {
+const CardBreed = () => {
+
+  const { breeds, breedsImages, subBreeds } = useContext(DogsContext);
+  
   return breeds ? (
     <div className="breed-container">
       {breeds.map(breed => {
@@ -47,6 +52,7 @@ const CardBreed = ({ breeds, breedsImages, subBreeds }) => {
 CardBreed.propTypes = {
   breeds: PropTypes.array.isRequired,
   breedsImages: PropTypes.object.isRequired,
+  subBreeds: PropTypes.object.isRequired,
 };
 
 export default CardBreed;

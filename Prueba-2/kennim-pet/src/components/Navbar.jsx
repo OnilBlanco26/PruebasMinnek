@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
+  
   return (
     <>
      <h1 className="app-title">Vislumbre de maravillas</h1>

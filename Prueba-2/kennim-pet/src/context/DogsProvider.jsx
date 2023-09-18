@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { DogsContext } from "./DogsContext"
 import axios from "axios";
+import PropTypes from 'prop-types';
 
 export const DogsProvider = ({ children }) => {
 
@@ -63,6 +64,12 @@ export const DogsProvider = ({ children }) => {
         fetchSubBreeds(breed);
       });
     }, [breeds]);
+
+
+
+    DogsProvider.propTypes = {
+        children: PropTypes.node.isRequired,
+      };
 
 
     return (
