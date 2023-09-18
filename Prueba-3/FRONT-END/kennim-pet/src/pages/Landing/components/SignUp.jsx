@@ -1,23 +1,19 @@
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { startLogin } from '../../../redux/actions/auth';
 import Navbar from '../../../components/Navbar';
+import { useDispatch } from 'react-redux';
+import { startRegister } from '../../../redux/actions/auth';
 import { NavLink } from 'react-router-dom';
-import SignUp from './SignUp';
 
-const Login = () => {
+const SignUp = () => {
   const dispatch = useDispatch();
-
   const { register, handleSubmit, reset } = useForm();
-  const { email } = useSelector(state => state.auth);
 
-  const defaultValues = {
-    email: '',
-    password: '',
-  };
+  const defaultValues = { name: '', lastname: '', email: '', password: '' };
 
   const submit = data => {
-    dispatch(startLogin(data.email, data.password));
+    dispatch(
+      startRegister(data.name, data.lastname, data.email, data.password)
+    );
     reset(defaultValues);
   };
 
@@ -25,11 +21,35 @@ const Login = () => {
     <>
       <Navbar />
       <form className="form-container" onSubmit={handleSubmit(submit)}>
-        <div className="form-login--box">
+        <div className="form-login--box box-red">
           <img src="/pet-house.png" alt="" />
-          <div className="test-box">
-            <h3>Test user : <span className='test-span'>jhondoe@gmail.com</span> </h3>
-            <h3>Password: <span className='test-span'>1234</span> </h3>
+          <div className='box-name'>
+          <div className="box-item">
+            <label className="form-label" htmlFor="email">
+              Name
+            </label>
+            <input
+              className="form-input"
+              type="text"
+              placeholder="Jhon"
+              id="name"
+              name="name"
+              {...register('name', { required: true })}
+            />
+          </div>
+          <div className="box-item">
+            <label className="form-label" htmlFor="lastname">
+              Last Name
+            </label>
+            <input
+              className="form-input"
+              type="lastname"
+              placeholder="Doe"
+              id="lastname"
+              name="lastname"
+              {...register('lastname', { required: true })}
+            />
+          </div>
           </div>
           <div className="box-item">
             <label className="form-label" htmlFor="email">
@@ -41,7 +61,6 @@ const Login = () => {
               placeholder="Ex:jhondoe@gmail.com"
               id="email"
               name="email"
-              defaultValue={email}
               {...register('email', { required: true })}
             />
           </div>
@@ -59,10 +78,10 @@ const Login = () => {
             />
           </div>
           <button className="form-button" type="submit">
-            Login
+            Sign Up
           </button>
-          <NavLink className="text-link" to="/signup">
-          Don't have an account? Sign up
+          <NavLink className="text-link" to="/">
+            Login
           </NavLink>
         </div>
       </form>
@@ -70,4 +89,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

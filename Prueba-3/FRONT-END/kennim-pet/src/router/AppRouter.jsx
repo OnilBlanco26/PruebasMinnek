@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 
 import Navbar from '../components/Navbar';
 import { DogsProvider } from '../context/DogsProvider';
@@ -10,6 +10,8 @@ import Landing from '../pages/Landing/Landing';
 import PrivateRoute from './PrivateRouter';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import Login from '../pages/Landing/components/Login';
+import SignUp from '../pages/Landing/components/SignUp';
 // import { startChecking } from '../redux/actions/auth';
 
 const AppRouter = () => {
@@ -26,7 +28,7 @@ const AppRouter = () => {
   
   return (
       
-      <HashRouter>
+      <BrowserRouter>
       {isLoading && <Loading />}
       <Routes>
         <Route
@@ -34,12 +36,12 @@ const AppRouter = () => {
           element={
             <PublicRoute isAuthenticated={!!id}>
               <Routes>
-                <Route path="/" element={<Landing />} />
-                <Route path="*" element={<Landing />} />
+                <Route path="/" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
               </Routes>
             </PublicRoute>
           }
-        />
+        />d
 
         <Route
           path="dogs/*"
@@ -53,7 +55,7 @@ const AppRouter = () => {
           }
         />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
  
   );
 };
