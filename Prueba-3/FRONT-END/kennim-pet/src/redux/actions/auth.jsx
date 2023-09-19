@@ -8,7 +8,7 @@ export const startLogin = (email, password) => {
     dispatch(setIsLoading(true));
     axios
       .post(
-        "http://localhost:3000/minnerk/api/v1/auth/login",
+        "https://pruebasminnek-production.up.railway.app/minnerk/api/v1/auth/login",
         {
           email,
           password,
@@ -47,7 +47,7 @@ export const startRegister = (name, lastname,email, password) => {
     dispatch(setIsLoading(true));
     axios
       .post(
-        "http://localhost:3000/minnerk/api/v1/auth/signup",
+        "https://pruebasminnek-production.up.railway.app/minnerk/api/v1/auth/signup",
         { name, lastname, email, password }
       )
       .then((resp) => {
@@ -55,7 +55,7 @@ export const startRegister = (name, lastname,email, password) => {
         localStorage.setItem("token", resp.data.token);
         dispatch(
           login({
-            id: resp.data.user.uid,
+            id: resp.data.user.id,
             email: resp.data.user.email,
           })
         );
@@ -83,7 +83,7 @@ export const startChecking = () => {
     dispatch(setIsLoading(true));
     axios
       .get(
-        "http://localhost:3000/minnerk/api/v1/auth/renew",
+        "https://pruebasminnek-production.up.railway.app/minnerk/api/v1/auth/renew",
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }

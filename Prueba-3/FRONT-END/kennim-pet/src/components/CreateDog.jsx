@@ -10,16 +10,17 @@ const CreateDog = () => {
 
   const submit = data => {
     // Convierte las subrazas en un arreglo de objetos con el campo "name"
-    const subBreedsArray = data.subBreeds.split('\n').map(subBreed => ({ name: subBreed.trim() }));
+    const subBreedsArray = data.subBreeds
+      .split('\n')
+      .map(subBreed => ({ name: subBreed.trim() }));
 
     // Crea un objeto con la estructura esperada
     const dogData = {
       name: data.name,
       subBreeds: subBreedsArray,
-      image: data.image
+      image: data.image,
     };
 
-  
     dispatch(createDogAction(dogData));
 
     reset(defaultValues);
@@ -37,7 +38,7 @@ const CreateDog = () => {
             <input
               className="form-input"
               type="text"
-              placeholder="Zack"
+              placeholder="Husky"
               id="name"
               name="name"
               {...register('name', { required: true })}
@@ -48,17 +49,16 @@ const CreateDog = () => {
               Sub Breeds (Enter one sub breed per line)
             </label>
             <textarea
-              className="form-input"
-              placeholder="Ex:
-              - Labrador
-              - Golden Retriever"
+              className="form-textarea"
+              placeholder="- Labrador
+- Golden Retriever"
               id="subBreeds"
               name="subBreeds"
               {...register('subBreeds', { required: true })}
             />
           </div>
 
-          <div className='box-item'>
+          <div className="box-item">
             <label className="image" htmlFor="image">
               Image URL
             </label>

@@ -10,7 +10,7 @@ export const createDogAction = (dogData) => {
 
     axios
       .post(
-        "http://localhost:3000/minnerk/api/v1/dogs", 
+        "https://pruebasminnek-production.up.railway.app/minnerk/api/v1/dogs", 
         dogData,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }, 

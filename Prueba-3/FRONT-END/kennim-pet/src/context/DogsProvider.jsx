@@ -11,10 +11,10 @@ export const DogsProvider = ({ children }) => {
   
     useEffect(() => {
       axios
-        .get('http://localhost:3000/minnerk/api/v1/dogs')
+        .get('https://pruebasminnek-production.up.railway.app/minnerk/api/v1/dogs')
         .then(res => {
           setBreeds(res.data.data.dogs);
-          console.log(res.data.data.dogs)
+          console.log(res)
         })
         .catch(err => console.log(err));
     }, []);
