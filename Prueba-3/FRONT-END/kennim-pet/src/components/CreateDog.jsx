@@ -40,7 +40,7 @@ const CreateDog = () => {
         <div className="form-createDog--box">
           <img src="/pet-house.png" alt="" />
           <div className="box-item">
-            <label className="name" htmlFor="name">
+            <label className="box-label name" htmlFor="name">
               Dog Name
             </label>
             <input
@@ -54,7 +54,7 @@ const CreateDog = () => {
             {errors.name && <p className="error">{errorMessages.name}</p>}
           </div>
           <div className="box-item">
-            <label className="subBreeds" htmlFor="subBreeds">
+            <label className="box-label subBreeds" htmlFor="subBreeds">
               Sub Breeds (Enter one sub breed per line)
             </label>
             <textarea
@@ -69,7 +69,7 @@ const CreateDog = () => {
           </div>
 
           <div className="box-item">
-            <label className="image" htmlFor="image">
+            <label className="box-label image" htmlFor="image">
               Image URL
             </label>
             <input

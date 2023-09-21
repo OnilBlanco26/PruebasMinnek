@@ -102,7 +102,7 @@ body {
 .log-btn {
     position: absolute;
     top: .3rem;
-    right: 1rem;
+    right: 3rem;
     color: #f28986;
     background-color: none;
 }
@@ -462,5 +462,220 @@ tr:last-child {
     color: #f28986;
     font-size: 12px;
     margin-top: 5px;
+}
+
+.menu-toggle {
+    display: none;
+
+}
+
+
+/* estilos para moviles */
+
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        height: 5rem;
+        position: none;
+    }
+
+    .navbar-logo {
+        margin-top: 1rem;
+    }
+
+    .navbar-title {
+        margin-top: 0;
+    }
+
+    .navbar-links {
+        display: none;
+    }
+
+    .menu-toggle {
+        position: absolute;
+        display: flex;
+        right: 3rem;
+        top: 1rem;
+    }
+
+    .menu-toggle i {
+        font-size: 2rem;
+        color: #fff;
+    }
+
+    .menu-toggle i:hover {
+        color: #f28986;
+        cursor: pointer;
+    }
+
+    .navbar-icon {
+        width: 2rem;
+        height: 2rem;
+        margin-top: -1.5em;
+        margin-left: 1rem;
+    }
+
+    .breed-container {
+        width: 100%;
+        margin-top: 10rem;
+    }
+
+    .breed-name {
+        font-size: 1.5rem;
+    }
+
+    .image-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .breed-image {
+        width: 100%;
+        height: 100%;
+    }
+
+    .noImage-text {
+        font-size: 1rem;
+    }
+
+    .sub-breeds-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .sub-breeds-list {
+        width: 100%;
+        height: 100%;
+    }
+
+    .sub-breeds-item {
+        font-size: 1.5rem;
+    }
+
+    .table-container {
+        flex-direction: column;
+        margin: 0 auto;
+        width: 90%;
+    }
+
+    .dogs-table--container {
+        width: 96%;
+        margin: 0 auto;
+    }
+
+    .filter-container {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 1rem;
+    }
+
+    .table-input {
+        width: 100%;
+    }
+
+    .table-select {
+        width: 100%;
+    }
+
+    .dogs-table {
+        width: 100%;
+        margin: 0;
+    }
+
+    .dogs-table--body {
+        width: 100%;
+        margin: 0;
+    }
+
+
+
+    .form-container {
+        width: 100%;
+        height: auto;
+        margin-top: 10rem;
+    }
+
+    .form-createDog--box {
+        margin-top: -7rem;
+        width: 90%;
+        margin-bottom: 7rem;
+    }
+
+    .breed-container {
+        margin-top: -1rem;
+    }
+
+    .form-login--box {
+        width: 100%;
+        height: 100%;
+    }
+
+    .error {
+        font-size: 10px;
+    }
+
+    .box-label {
+        font-size: 1.2rem;
+    }
+
+    .form-button {
+        font-size: 1.2rem;
+    }
+
+
+}
+
+@media screen and (max-width: 400px) {
+    .app-title {
+        margin-top: 6rem;
+        font-size: 1.8rem;
+    }
+}
+
+/* Estilos base para el div */
+.menu-form {
+    width: 300px; /* Equivalente a w-64 en Tailwind */
+    height: 300px; /* Equivalente a h-[150px] en Tailwind */
+    background-color: rgba(0, 0, 0, 0.7); /* Equivalente a bg-black/80 en Tailwind */
+    border-radius: 0.375rem; /* Equivalente a rounded-lg en Tailwind */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* Equivalente a shadow-md en Tailwind */
+    margin-top: 3.5rem; /* Equivalente a mt-14 en Tailwind */
+    position: fixed; /* Equivalente a relative en Tailwind */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    overflow: hidden;
+    z-index: 50;
   }
 
+  .menu-form a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+
+  /* Efecto de desenfoque de fondo */
+  .menu-form::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(8px); /* Equivalente a backdrop-blur-md en Tailwind */
+  }
+  
+  /* Estilos para el diseño flex */
+  .menu-form {
+    display: flex; /* Equivalente a flex en Tailwind */
+    flex-direction: column; /* Equivalente a flex-col en Tailwind */
+  }
