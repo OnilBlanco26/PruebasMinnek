@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 import { createDogAction } from '../redux/actions/dog';
 import { useContext } from 'react';
 import { DogsContext } from '../context/DogsContext';
+import {  useNavigate } from 'react-router-dom';
 
 const CreateDog = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit, reset, formState: {errors} } = useForm();
   const { setBreeds } = useContext(DogsContext);
+  const navigate = useNavigate();
 
   const defaultValues = { name: '', subBreeds: [], image: '' };
 
@@ -26,6 +28,8 @@ const CreateDog = () => {
 
     reset(defaultValues);
     setBreeds(breeds => [...breeds, dogData]);
+
+    navigate('/dogs/home');
   };
 
 
