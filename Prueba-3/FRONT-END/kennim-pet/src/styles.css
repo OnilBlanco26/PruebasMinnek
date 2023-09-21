@@ -315,6 +315,7 @@ body {
 
 .dogs-table--body {
     text-align: center;
+    position: relative;
 }
 
 th {
@@ -340,6 +341,22 @@ tr {
 
 tr:last-child {
     border-bottom: none;
+}
+
+.btn-del {
+    position: absolute;
+    background-color: #f28986;
+    border-radius: 10px;
+    border-color: #4f6fad;
+    color: white;
+    right: .2rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-del:hover {
+    background-color: #f6f6f6;
+    color: #f28986;
+    transition: background-color 0.3s ease;
 }
 
 

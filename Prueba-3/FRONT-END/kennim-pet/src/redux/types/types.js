@@ -5,6 +5,6 @@ export const types = {
 
     uiSetIsLoadding: "[ui] Is Loading",
     createDogSuccess: "[dogs] Create Dog Success",
-    updateDogList: "[dogs] Update Dog List",
+    deleteDogSuccess: "[dogs] Delete Dog Success",
   };
   

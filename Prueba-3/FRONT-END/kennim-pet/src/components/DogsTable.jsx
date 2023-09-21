@@ -1,10 +1,19 @@
 import { useContext, useState } from 'react';
 import { DogsContext } from '../context/DogsContext';
+import { deleteDogAction } from '../redux/actions/dog';
+import { useDispatch } from 'react-redux';
 
 const DogsTable = () => {
-  const { breeds } = useContext(DogsContext);
+  const { breeds, setBreeds } = useContext(DogsContext);
   const [search, setSearch] = useState('');
   const [sortBy, setSortBy] = useState('name');
+
+  const dispatch = useDispatch();
+
+  const handleDelete = id => {
+    dispatch(deleteDogAction(id));
+    setBreeds(breeds => breeds.filter(breed => breed.id !== id));
+  };
 
   const filterBreeds = (breeds, search) => {
     return breeds.filter(breed => {
@@ -73,11 +82,17 @@ const DogsTable = () => {
                 <td>{breed.name}</td>
                 {breed.subBreeds.length > 0
                   ? breed.subBreeds.map((subBreed, index) => {
-                      return <span className='subBreed-sp' key={subBreed.id}>{subBreed.name}
-                      {index < breed.subBreeds.length - 1 ? ', ' : null}
-                      </span>;
+                      return (
+                        <span className="subBreed-sp" key={subBreed.id}>
+                          {subBreed.name}
+                          {index < breed.subBreeds.length - 1 ? ', ' : null}
+                        </span>
+                      );
                     })
                   : null}
+               
+                  <button className='btn-del' onClick={() => handleDelete(breed.id)}>X</button>
+                 
               </tr>
             );
           })}

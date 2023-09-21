@@ -20,9 +20,7 @@ export const createDogAction = (dogData) => {
         console.log(resp.data);
 
         dispatch(createDogSuccess(resp.data));
-        // const currentDogsList = getState().dogReducer.dogs;
-        // const updatedDogsList = [...currentDogsList, resp.data];
-        // dispatch(updateDogsList(updatedDogsList));
+        
         
 
         Swal.fire({
@@ -44,13 +42,50 @@ export const createDogAction = (dogData) => {
   };
 };
 
+export const deleteDogAction = (id) => {
+  return (dispatch, getState) => {
+    dispatch(setIsLoading(true));
+
+    axios
+      .delete(
+        `https://pruebasminnek-production.up.railway.app/minnerk/api/v1/dogs/${id}`,
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        }
+      )
+      .then((resp) => {
+        console.log(resp.data);
+
+        dispatch(deleteDogSuccess(id));
+
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: resp.data.message,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      })
+      .finally(() => dispatch(setIsLoading(false)));
+  };
+}
+
 
 export const createDogSuccess = (dog) => ({
   type: types.createDogSuccess,
   payload: dog,
 });
 
-export const updateDogsList = (newDogsList) => ({
-  type: types.updateDogList,
-  payload: newDogsList,
+
+
+export const deleteDogSuccess = (id) => ({
+  type: types.deleteDogSuccess,
+  payload: id,
 });

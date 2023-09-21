@@ -1,13 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { createDogAction, updateDogsList } from '../redux/actions/dog';
+import { createDogAction } from '../redux/actions/dog';
 import { useContext } from 'react';
 import { DogsContext } from '../context/DogsContext';
 
 const CreateDog = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit, reset, formState: {errors} } = useForm();
-  const { breeds, setBreeds } = useContext(DogsContext);
+  const { setBreeds } = useContext(DogsContext);
 
   const defaultValues = { name: '', subBreeds: [], image: '' };
 
@@ -27,6 +27,7 @@ const CreateDog = () => {
     reset(defaultValues);
     setBreeds(breeds => [...breeds, dogData]);
   };
+
 
   const errorMessages = {
     name: "Dog name is required",
