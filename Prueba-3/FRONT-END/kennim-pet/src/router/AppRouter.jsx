@@ -13,7 +13,8 @@ import { useEffect } from 'react';
 import Login from '../pages/Landing/components/Login';
 import SignUp from '../pages/Landing/components/SignUp';
 import CreateDogPage from '../pages/Dogs/CreateDogPage';
-// import { startChecking } from '../redux/actions/auth';
+import { startChecking } from '../redux/actions/auth';
+
 
 const AppRouter = () => {
 
@@ -21,15 +22,15 @@ const AppRouter = () => {
   const { id } = useSelector(state => state.auth);
   const { isLoading } = useSelector(state => state.ui);
 
-  // useEffect(() => {
-  //   dispatch(startChecking());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(startChecking());
+  }, [dispatch]);
 
 
   
   return (
       
-      <BrowserRouter>
+      <HashRouter>
       {isLoading && <Loading />}
       <Routes>
         <Route
@@ -48,16 +49,18 @@ const AppRouter = () => {
           path="dogs/*"
           element={
             <PrivateRoute isAuthenticated={!!id}>
+              <DogsProvider>
               <Routes>
                 <Route path="home" element={<DogsImagePage />} />
                 <Route path="table" element={<DogsTablePage />} />
                 <Route path="create" element={<CreateDogPage />} />
               </Routes>
+              </DogsProvider>
             </PrivateRoute>
           }
         />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
  
   );
 };

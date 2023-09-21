@@ -24,7 +24,7 @@ export const startLogin = (email, password) => {
           })
         );
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: resp.data.message,
           showConfirmButton: false,
@@ -60,7 +60,7 @@ export const startRegister = (name, lastname,email, password) => {
           })
         );
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: resp.data.message,
           showConfirmButton: false,

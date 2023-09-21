@@ -12,11 +12,11 @@ export const dogReducer = (state = initialState, action) => {
         dogs: [...state.dogs, action.payload], 
       };
 
-    case types.updateDogList:
-      return {
-        ...state,
-        dogs: action.payload,
-      };
+      case types.updateDogList:
+        return {
+          ...state,
+          dogs: action.payload,
+        };
 
 
     default:

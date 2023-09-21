@@ -1,20 +1,21 @@
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { createDogAction } from '../redux/actions/dog';
+import { createDogAction, updateDogsList } from '../redux/actions/dog';
+import { useContext } from 'react';
+import { DogsContext } from '../context/DogsContext';
 
 const CreateDog = () => {
   const dispatch = useDispatch();
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, formState: {errors} } = useForm();
+  const { breeds, setBreeds } = useContext(DogsContext);
 
   const defaultValues = { name: '', subBreeds: [], image: '' };
 
   const submit = data => {
-    // Convierte las subrazas en un arreglo de objetos con el campo "name"
     const subBreedsArray = data.subBreeds
       .split('\n')
       .map(subBreed => ({ name: subBreed.trim() }));
 
-    // Crea un objeto con la estructura esperada
     const dogData = {
       name: data.name,
       subBreeds: subBreedsArray,
@@ -24,6 +25,12 @@ const CreateDog = () => {
     dispatch(createDogAction(dogData));
 
     reset(defaultValues);
+    setBreeds(breeds => [...breeds, dogData]);
+  };
+
+  const errorMessages = {
+    name: "Dog name is required",
+    image: "Image URL is required",
   };
 
   return (
@@ -43,6 +50,7 @@ const CreateDog = () => {
               name="name"
               {...register('name', { required: true })}
             />
+            {errors.name && <p className="error">{errorMessages.name}</p>}
           </div>
           <div className="box-item">
             <label className="subBreeds" htmlFor="subBreeds">
@@ -54,8 +62,9 @@ const CreateDog = () => {
 - Golden Retriever"
               id="subBreeds"
               name="subBreeds"
-              {...register('subBreeds', { required: true })}
+              {...register('subBreeds')}
             />
+           
           </div>
 
           <div className="box-item">
@@ -70,6 +79,7 @@ const CreateDog = () => {
               name="image"
               {...register('image', { required: true })}
             />
+            {errors.image && <p className="error">{errorMessages.image}</p>}
           </div>
 
           <button className="form-button" type="submit">

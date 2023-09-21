@@ -5,7 +5,7 @@ import { types } from "../types/types";
 
 
 export const createDogAction = (dogData) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     dispatch(setIsLoading(true));
 
     axios
@@ -19,11 +19,14 @@ export const createDogAction = (dogData) => {
       .then((resp) => {
         console.log(resp.data);
 
-        dispatch(updateDogsList(resp.data.data.dogs))
         dispatch(createDogSuccess(resp.data));
+        // const currentDogsList = getState().dogReducer.dogs;
+        // const updatedDogsList = [...currentDogsList, resp.data];
+        // dispatch(updateDogsList(updatedDogsList));
+        
 
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: resp.data.message,
           showConfirmButton: false,

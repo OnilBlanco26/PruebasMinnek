@@ -73,7 +73,7 @@ const DogsTable = () => {
                 <td>{breed.name}</td>
                 {breed.subBreeds.length > 0
                   ? breed.subBreeds.map((subBreed, index) => {
-                      return <span key={subBreed.id}>{subBreed.name}
+                      return <span className='subBreed-sp' key={subBreed.id}>{subBreed.name}
                       {index < breed.subBreeds.length - 1 ? ', ' : null}
                       </span>;
                     })
